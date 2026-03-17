@@ -16,20 +16,21 @@ const app = express();
 //conect backend with frontend
 app.use(cors({
     credentials: true,
-    origin: 'http://localhost:5174'
+    origin: 'http://localhost:5173'
 }
 ));
 
 //Maintain the session of the user
 app.use(session({
-    secret: 'tu_clave_secreta_aureo', // Cámbiala por algo seguro
-    resave: false,                  // No resguarda la sesión si no hubo cambios
-    saveUninitialized: false,       // No crea sesiones vacías (ahorra memoria)
+    secret: 'tu_clave_secreta_aureo', 
+    resave: false,                 
+    saveUninitialized: false,       
     cookie: {
-        secure: false,                // Ponlo en true solo si usas HTTPS
-        maxAge: 1000 * 60 * 60 * 24   // La sesión dura 1 día
+        secure: false,                
+        maxAge: 1000 * 60 * 60 * 24   
     }
-}));
+}
+));
 
 
 
