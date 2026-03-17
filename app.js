@@ -12,7 +12,7 @@ import validateSession from './validate-session.js';
 
 const app = express();
 
-
+app.use(express.json());
 //conect backend with frontend
 app.use(cors({
     credentials: true,
@@ -58,7 +58,7 @@ if (!req.session.correo) {
 
 
 //Register endpoint with MySQL query
-app.get('/register', register)
+app.post('/register', register)
 
 
 //List users endpoint with MySQL query
