@@ -1,8 +1,15 @@
-const validateSession =  (req, res) => {
-    if (req.session.correo) {
-        next(); // Continue to the next middleware or route handler  
+const validateSession = (req, res) => {
+    if (req.session && req.session.correo) {
+        return res.status(200).json({ 
+            authenticated: true, 
+            message: 'Sesión válida',
+            user: req.session.correo 
+        });
     } else {
-        res.status(401).json({ message: "No autorizado" });
+        return res.status(401).json({ 
+            authenticated: false, 
+            message: "No hay una sesión activa" 
+        });
     }      
 }
 

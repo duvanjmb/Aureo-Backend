@@ -6,7 +6,7 @@ const login = async(req, res) => {
     try {
         const [results, fields] = await connection.query(
             "SELECT * FROM `usuarios` WHERE `correo` = ? AND `clave` = ?",
-            [data.correo, data.clave]
+            [data.correo, md5(data.clave)]
         );
 
         if (results.length > 0) {

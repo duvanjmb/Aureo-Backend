@@ -1,4 +1,4 @@
-import express from 'express'; 
+import express, { Router } from 'express'; 
 import cors from 'cors'
 import session from 'express-session';
 import bcrypt from 'bcrypt';
@@ -6,13 +6,15 @@ const saltRounds = 10;
 const myPlaintextPassword = 's0/\/\P4$$w0rD';
 import login from './login.js';
 import register from './register.js';
-import { obtainUsers, deleteUser } from './list-users.js';
-import validateSession from './validate-session.js';
-
+import validateSession from './validate-session.js'; 
+import userRoutes from './routes/userRoutes.js';
+import productRoutes from './routes/productRoute.js';
 
 const app = express();
 
+
 app.use(express.json());
+
 //conect backend with frontend
 app.use(cors({
     credentials: true,
@@ -47,25 +49,15 @@ app.get('/', (req, res) => {
 
 app.get('/validate-session',validateSession);
 
-/*
-if (!req.session.correo) {
-        res.status(200).send('Sesión válida');  
-        return; // Exit the function after sending the response
-    }
-
-*/
-
 
 
 //Register endpoint with MySQL query
 app.post('/register', register)
 
 
-//List users endpoint with MySQL query
-app.get('/list-users', obtainUsers)
 
-//Delete user endpoint with MySQL query
-app.delete('/list-users', deleteUser)
+app.use('/api/users', userRoutes);
+app.use('/api/products', productRoutes);
 
 
 app.listen(3000, () => {
