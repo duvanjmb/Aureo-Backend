@@ -37,7 +37,7 @@ app.use(session({
 
 
 // Login endpoint with MySQL query
-app.get('/login', login);
+app.post('/login', login);
 
 
 

@@ -2,18 +2,18 @@ import connection from './connection.js';
 import md5 from 'md5';
 
 const login = async(req, res) => {
-    const data = req.query;
+    const { correo, clave } = req.body;
     try {
         const [results, fields] = await connection.query(
             "SELECT * FROM `usuarios` WHERE `correo` = ? AND `clave` = ?",
-            [data.correo, md5(data.clave)]
+            [correo, md5(clave)]
         );
 
         if (results.length > 0) {
             const usuarioEncontrado = results[0];
 
             if (req.session) {
-                req.session.correo = data.correo;
+                req.session.correo = correo;
             }
 
 
